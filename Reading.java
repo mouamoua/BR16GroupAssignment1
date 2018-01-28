@@ -23,7 +23,7 @@ public class Reading {
 		//				and will create a default database when you FIRST run it.
 		//				However, I'm still trying to figure out how to do RELATIVE file pathing.
 		//				any help would be great.
-		String path = "./example.json";
+		String path = "./assignment_1_example.json";
 		FileReader fr = new FileReader(path);
 		JsonElement data = new JsonParser().parse(fr);
 		getReading(data);
