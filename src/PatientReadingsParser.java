@@ -1,4 +1,3 @@
-package myReading;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -9,10 +8,9 @@ import com.google.gson.*;
 
 //ALL print statements you see are simply for testing
 
-public class Reading {
-	//this holds the datas in an ArrayList
+public class PatientReadingsParser {
+	//this holds the data in an ArrayList of HashMaps
 	static ArrayList<HashMap<String, Object>> patient_readings = new ArrayList<HashMap<String, Object>>();
-	static int pr_size = 0;
 	
 	public void start() throws IOException {
 		//PLEASE READ: I am currently working on this
@@ -62,8 +60,7 @@ public class Reading {
 	            //so it skips the rest and goes onto the next jsonArray value
 	            else if(hm.containsKey("patient_id")){
 	            	patient_readings.add(hm);
-	            	pr_size = patient_readings.size();
-	            	System.out.println("pr_size = "+pr_size);
+	            	System.out.println("Size: " + patient_readings.size());
 	            	System.out.println("Key: " + entry.getKey());
 		            System.out.println("Value:");
 		            while(iter.hasNext()) {
