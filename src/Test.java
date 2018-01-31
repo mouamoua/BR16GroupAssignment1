@@ -16,6 +16,9 @@ public class Test {
         
         // Example of current data after it has been organized
         Trial trial = new Trial(trialFileData.patient_readings);
+        trial.addReadingToPatient("12513", new Reading("12513", "testType", "testId", 199.9, 5.4));
+        trial.endPatientTrial("12513");
+        trial.addReadingToPatient("12513", new Reading("12513", "testTypeNoShow", "testIdNoShow", 20.1, 5.6));
         System.out.println(trial);
     }
 }
