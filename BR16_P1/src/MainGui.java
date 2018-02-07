@@ -279,14 +279,11 @@ public class MainGui {
 	}
 
 	protected void saveFile() {
-		//NOT IMPLEMENTED CORRECTLY
-		Gson gson = new Gson();
 		try {
 			jsonFileOperations.writeFile(txt_savefile.getText(), PatientReadingsParser.patient_readings);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
 	}
 
 	protected void cancelReading() {
@@ -313,8 +310,7 @@ public class MainGui {
 	private ArrayList<Patient> patientList = new ArrayList<Patient>();
 	private void loadFile(String text) {
 		try {
-			PatientReadingsParser.start(text);
-			
+			jsonFileOperations.getFile(txt_loadfile.getText());
 			//loadTable();
 			loadLists();
 		} catch (IOException e) {
