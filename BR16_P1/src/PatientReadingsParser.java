@@ -12,23 +12,15 @@ public class PatientReadingsParser {
 	//this holds the data in an ArrayList of HashMaps
 	static ArrayList<HashMap<String, Object>> patient_readings = new ArrayList<HashMap<String, Object>>();
 	
-	public void start() throws IOException {
-		//PLEASE READ: I am currently working on this
-		//				Ideally, I want it to check if there is such a json file
-		//				if NOT, it will create one
-		//				if TRUE, it will LOAD data from it
-		//				this will allow the user to store new readings into the file
-		//				and will create a default database when you FIRST run it.
-		//				However, I'm still trying to figure out how to do RELATIVE file pathing.
-		//				any help would be great.
-		String path = "./assignment_1_example.json";
+	public static void start(String location) throws IOException {
+		String path = location;
 		FileReader fr = new FileReader(path);
 		JsonElement data = new JsonParser().parse(fr);
 		getReading(data);
 	}
 	
 	//this reads the json file
-	public void getReading(JsonElement data) throws IOException{	
+	public static void getReading(JsonElement data) throws IOException{	
 		//checks if it's an object with class values
 		if (data.isJsonObject()) {
 	        System.out.println("Is an object");
@@ -82,4 +74,6 @@ public class PatientReadingsParser {
 	        }
 	    }
 	}
+
+
 }
