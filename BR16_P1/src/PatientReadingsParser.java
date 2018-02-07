@@ -12,23 +12,18 @@ public class PatientReadingsParser {
 	//this holds the data in an ArrayList of HashMaps
 	static ArrayList<HashMap<String, Object>> patient_readings = new ArrayList<HashMap<String, Object>>();
 	
-	public void start() throws IOException {
-		//PLEASE READ: I am currently working on this
-		//				Ideally, I want it to check if there is such a json file
-		//				if NOT, it will create one
-		//				if TRUE, it will LOAD data from it
-		//				this will allow the user to store new readings into the file
-		//				and will create a default database when you FIRST run it.
-		//				However, I'm still trying to figure out how to do RELATIVE file pathing.
-		//				any help would be great.
-		String path = "./assignment_1_example.json";
+	public static void start(String location) throws IOException {
+		patient_readings.clear();
+		String path = location;
 		FileReader fr = new FileReader(path);
 		JsonElement data = new JsonParser().parse(fr);
 		getReading(data);
+		
+		
 	}
 	
 	//this reads the json file
-	public void getReading(JsonElement data) throws IOException{	
+	public static void getReading(JsonElement data) throws IOException{	
 		//checks if it's an object with class values
 		if (data.isJsonObject()) {
 	        System.out.println("Is an object");
@@ -42,22 +37,12 @@ public class PatientReadingsParser {
 	            Gson gson = new Gson();
 	            HashMap hm = gson.fromJson(data, HashMap.class);
 	            System.out.println(hm.toString());
-	            //this if-statement was made to bypass the initial array
-	            //because of how the json file was created
-	            //what happens is patient_readings is a key the other 4 HashMaps
-	            //become its value
-	            //so this is a messy way to bypass such a thing
-	            //however, if you've figured out a cleaner way to do this please feel free to edit this
+
 	            if(hm.containsKey("patient_readings")) {
 	            	System.out.println("MATCH");
 	            	getReading(entry.getValue());
 	            }
-	            //inside EVERY reading, stored HashMap, there 4 key&values and is a patient_id
-	            //what this does is skips the OTHER jsonObject so that 4 copies of the SAME HashMap
-	            //are not put into the static ArrayList database
-	            //Otherwise, every time it hits patient_id it creates a copy, then reading_value creates a copy,
-	            //then  reading_date creates a copy, etc.
-	            //so it skips the rest and goes onto the next jsonArray value
+
 	            else if(hm.containsKey("patient_id")){
 	            	patient_readings.add(hm);
 	            	System.out.println("Size: " + patient_readings.size());
@@ -69,9 +54,7 @@ public class PatientReadingsParser {
 		            getReading(entry.getValue());
 	            }
 	        }
-	    //this applies to patient_readings only in the example.json
-	    //since patient_readings is an array
-	    //this will continue to go through the jsonArray until it is done.
+
 	    } else if (data.isJsonArray()) {
 	        JsonArray array = data.getAsJsonArray();
 	        System.out.println("Is an array. Number of values: " + array.size());
@@ -81,5 +64,9 @@ public class PatientReadingsParser {
 	            getReading(entry);
 	        }
 	    }
+		
+		patient_readings.getClass();
 	}
+
+
 }
